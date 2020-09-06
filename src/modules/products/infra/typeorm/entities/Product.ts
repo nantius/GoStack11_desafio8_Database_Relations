@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import {
   Entity,
   Column,
@@ -9,20 +10,24 @@ import {
 
 import OrdersProducts from '@modules/orders/infra/typeorm/entities/OrdersProducts';
 
+@Entity('products')
 class Product {
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
+  @Column()
   name: string;
 
+  @Column()
   price: number;
 
+  @Column()
   quantity: number;
 
+  @OneToMany(type => OrdersProducts, order_products => order_products.product, {
+    cascade: true,
+  })
   order_products: OrdersProducts[];
-
-  created_at: Date;
-
-  updated_at: Date;
 }
 
 export default Product;
